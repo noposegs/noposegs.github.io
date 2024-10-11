@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Novel View Synthesis using Gaussian Splatting without Accurate Pose Initialization">
+  <meta name="keywords"
+    content="NoPoseGS, 3D Gaussian Splatting, Novel View Synthesis, Pose Refinement, Pose Estimation, 3D Reconstruction">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Look Gauss, No Pose: Novel View Synthesis using Gaussian Splatting without Accurate Pose Initialization</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <!-- <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css"> -->
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css"> -->
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/logo.svg">
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <!-- <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script> -->
+  <script src="./static/js/index.js"></script>
+</head>
+
+<body>
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <!-- <div class="navbar-brand">
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div> -->
+    <!-- <div class="navbar-menu">
+      <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+        <a class="navbar-item" href="https://github.com/minghanqin">
+          <span class="icon">
+            <i class="fas fa-home"></i>
+          </span>
+        </a>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            More Research
+          </a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://minghanqin.github.io/AvatarSVE/">
+              AvatarSVE
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div> -->
+  </nav>
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">Look Gauss, No Pose: Novel View Synthesis using Gaussian Splatting
+              without Accurate Pose Initialization</h1>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">Christian Schmidt,</span>
+              <span class="author-block">Jens Piekenbrinck,</span>
+              <span class="author-block">Bastian Leibe</span>
+            </div>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">RWTH Aachen University</span>
+            </div>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <span color="red"><b>Accepted to IROS 2024</b></span>
+              </span>
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <!-- PDF Link. -->
+                <span class="link-block">
+                  <a href="" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                    </span>
+                    <span>Paper</span>
+                  </a>
+                </span>
+                <span class="link-block">
+                  <a href="" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                    </span>
+                    <span>arXiv</span>
+                  </a>
+                </span>
+                <!-- Video Link. -->
+                <!-- <span class="link-block">
+                  <a href="https://www.youtube.com/watch?v=XMlyjsei-Es"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                    </span>
+                    <span>Video</span>
+                  </a>
+                </span> -->
+                <!-- Code Link. -->
+                <span class="link-block">
+                  <a href="https://github.com/Schmiddo/noposegs"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <!-- Paper video. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <div class="content has-text-justified">
+          <p>
+            <b>TL;DR:</b> Camera Pose Estimation and Joint Reconstruction and Pose Refinement with 3D Gaussian
+            Splatting.
+          </p>
+        </div>
+        <!-- <div class="publication-video">
+          <iframe src="https://www.youtube.com/embed/XMlyjsei-Es?si=hOpMwKxk8efjEw_z" frameborder="0"
+            allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div> -->
+      </div>
+    </div>
+    <!--/ Paper video. -->
+    </div>
+  </section>
+
+
+
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <!-- Abstract. -->
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+              3D Gaussian Splatting has recently emerged as a powerful tool for fast and accurate novel-view synthesis
+              from a set of posed input images.
+              However, like most novelview synthesis approaches, it relies on accurate camera pose information, limiting
+              its applicability in real-world scenarios where acquiring accurate camera poses can be challenging or even
+              impossible.
+              We propose an extension to the 3D Gaussian Splatting framework by optimizing the extrinsic camera
+              parameters with respect to photometric residuals.
+              We derive the analytical gradients and integrate their computation with the existing high-performance CUDA
+              implementation.
+              This enables downstream tasks such as 6-DoF camera pose estimation as well as joint reconstruction and
+              camera refinement.
+              In particular, we achieve rapid convergence and high accuracy for pose estimation on real-world scenes.
+              Our method enables fast reconstruction of 3D scenes without requiring accurate pose information by jointly
+              optimizing geometry and camera poses, while achieving state-of-the-art results in novel-view synthesis.
+              Our approach is considerably faster to optimize than most competing methods, and several times faster in
+              rendering.
+              We show results on real-world scenes and complex trajectories through simulated environments, achieving
+              state-of-the-art results on LLFF while reducing runtime by two to four times compared to the most
+              efficient competing method.
+            </p>
+          </div>
+        </div>
+      </div>
+      <!--/ Abstract. -->
+  </section>
+
+
+  <!-- <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <h3 class="title is-4">Visualization of learned features</h3>
+
+          <div class="content has-text-centered">
+            <video id="replay-video" controls muted preload playsinline width="100%">
+              <source src="./static/videos/feature2.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="content has-text-centered">
+            <video id="replay-video" controls muted preload playsinline width="100%">
+              <source src="./static/videos/feature1.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="content has-text-centered">
+            <video id="replay-video" controls muted preload playsinline width="100%">
+              <source src="./static/videos/feature3.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="content has-text-centered">
+            <video id="replay-video" controls muted preload playsinline width="100%">
+              <source src="./static/videos/feature4.mp4" type="video/mp4">
+            </video>
+          </div>
+
+          <div class="hero-body">
+            <img src="./static/images/teaser.png" />
+          </div>
+          <div class="content has-text-justified">
+            <p>
+              Visualization of learned features of the previous SOTA method LERF and
+              our LangSplat. LangSplat grounds CLIP features into a set of 3D Language
+              Gaussians to construct a 3D language field. While LERF generates imprecise
+              and vague 3D features, our LangSplat accurately captures object boundaries
+              and provides precise 3D language fields without any post-processing. While
+              being effective, our LangSplat is also <font color="red"><b>199 &times;</b></font> faster than LERF at the
+              resolution of 1440 &times; 1080.
+            </p>
+          </div>
+          <h3 class="title is-4">Open-vocabulary 3D Query</h3>
+          <div class="content has-text-centered">
+            <video id="replay-video" controls muted preload playsinline width="100%">
+              <source src="./static/videos/ovq1.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="content has-text-centered">
+            <video id="replay-video" controls muted preload playsinline width="100%">
+              <source src="./static/videos/ovq2.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="hero-body">
+            <img src="./static/images/localization.png" />
+          </div>
+          <div class="hero-body">
+            <img src="./static/images/iou.png" />
+          </div>
+          <div class="content has-text-justified">
+            <p>
+              Our LangSplat is able to focus more precisely on the queried object.
+            </p>
+          </div>
+          <h3 class="title is-4">Open-vocabulary 3D Semantic Segmentation</h3>
+          <div class="content has-text-centered">
+            <video id="replay-video" controls muted preload playsinline width="100%">
+              <source src="./static/videos/semantic1.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="content has-text-centered">
+            <video id="replay-video" controls muted preload playsinline width="100%">
+              <source src="./static/videos/semantic2.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="hero-body">
+            <img src="./static/images/semantic_segmentation.png" />
+          </div>
+          <div class="content has-text-justified">
+            <p>
+              Our method is <font color="red"><b>199 &times;</b></font> faster than LERF at 1440*1080 resolution.<br>
+              Prior to any text query, our language field already exhibits precise 3D object boundaries.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section> -->
+
+
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre><code>@article{schmidt2024noposegs,
+  title={Look Gauss, No Pose: Novel View Synthesis using Gaussian Splatting without Accurate Pose Initialization},
+  author={Schmidt, Christian and Piekenbrinck, Jens and Leibe, Bastian},
+  journal={TODO},
+  year={2024}
+}</code></pre>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content">
+            <p>
+              This website is licensed under a <a rel="license"
+                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+                Commons Attribution-ShareAlike 4.0 International License</a>.
+            </p>
+            <p>
+              The souce code is borrowed from <a href="https://github.com/nerfies/nerfies.github.io">nerfies</a>,
+              we thank the authors for sharing the templates.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+
+</html>
